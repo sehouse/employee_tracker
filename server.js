@@ -16,4 +16,22 @@ const connection = mysql.createConnection({
 connection.connect((error) => {
     if (error) throw (error);
     console.log('connected as id' + connection.threadId)
+    beginProgram();
 });
+
+const beginProgram = () => {
+    inquirer.prompt({
+        name: 'action',
+        type: 'list',
+        message: 'Welcome to the TJPW Employee Database! Please select an option from the following choices:',
+        choices: [
+            'View all employees',
+            'View all departments.',
+            'View all roles',
+            'Add an employee',
+            'Add a department',
+            'Add a role',
+            'Close the application'
+        ]
+    })
+}
