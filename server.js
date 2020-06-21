@@ -34,7 +34,7 @@ const beginProgram = () => {
             'Add a role',
             'Close the application'
         ]
-//Switch/Case to run the selected option from the beginning list.
+        //Switch/Case to run the selected option from the beginning list.
     }).then((answer) => {
         switch (answer.action) {
             case "View all employees":
@@ -43,6 +43,7 @@ const beginProgram = () => {
             case 'Add an employee':
                 break;
             case 'View all departments':
+                listDepartments();
                 break;
             case 'Add a department':
                 break;
@@ -56,15 +57,30 @@ const beginProgram = () => {
                 break;
         }
     })
-}
+};
 
 //Function to search the DB for all employees and return their information in a table.
 const listEmployee = () => {
     const query = 'SELECT * FROM employee';
     connection.query(query, (error, response) => {
         if (error) throw error;
-        console.log(response.length + ' employees found.');
+        console.log(response.length + ' employee(s) found.');
         console.table('All Employees:', response);
         beginProgram();
     });
-}
+};
+
+//Function to search the DB for all departments and return their information in a table.
+const listDepartments = () => {
+    const query = 'SELECT * FROM department';
+    connection.query(query, (error, response) => {
+        if (error) throw error;
+        console.log(response.length + ' department(s) found.');
+        console.table('All departments:', response);
+        beginProgram();
+    });
+};
+
+const listRoles = () => {
+    
+};
