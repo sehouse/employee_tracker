@@ -53,6 +53,7 @@ const beginProgram = () => {
                 listRoles();
                 break;
             case 'Add a role':
+                createRole();
                 break;
             case 'Close the application':
                 break;
@@ -169,6 +170,57 @@ const createDepartment = () => {
             if (error) throw error;
             console.table('All departments:', response);
             beginProgram();
+        });
+    });
+}
+
+//Function to create a new role and add it to the db.
+const createRole = () => {
+    connection.query('SELECT * FROM department', (error, response) => {
+        if (error) throw error;
+        inquirer
+        .prompt([
+            {
+                name: 'new_role',
+                type: 'input',
+                message: 'Please input the title of the new role:'
+            },
+            {
+                name: 'salary',
+                type: 'input',
+                message: 'Please input the salary of this position (it must be a number):'
+            },
+            {
+                name: 'department',
+                type: 'list',
+                choices: () => {
+                    let department = [];
+                    for (let i = 0; i < response.length; i++) {
+                        department.push(response[i].name);
+                    }
+                    return department
+                },
+            }
+        ]).then((answer) => {
+            let departmentID;
+            for (let i = 0; i < response.length; i++) {
+                if (response[i].name == answer.department) {
+                    departmentID = response[i].id;
+                };
+            };
+            connection.query(
+                'INSERT INTO role SET ?',
+                {
+                    title: answer.new_role,
+                    salary: answer.salary,
+                    department_id: departmentID
+                },
+                (error, response) => {
+                    if (error) throw error;
+                    console.log("The new role has been added to the database.")
+                    beginProgram();
+                }
+            );
         });
     });
 }
