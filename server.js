@@ -47,6 +47,7 @@ const beginProgram = () => {
                 listDepartments();
                 break;
             case 'Add a department':
+                createDepartment();
                 break;
             case 'View all roles':
                 listRoles();
@@ -145,3 +146,29 @@ const createEmployee = () => {
         });
     });
 };
+
+//Function to create a new department and add it to the db.
+const createDepartment = () => {
+    inquirer
+    .prompt([
+            {
+                name: 'new_department',
+                type: 'input',
+                message: "Please enter the name of the new department that you wish to add to the database:"
+            }
+    ]).then((answer) => {
+        connection.query(
+            'INSERT INTO department SET ?',
+            {
+                 name: answer.new_department
+            }
+            );
+        const query = 'SELECT * FROM department';
+        
+        connection.query(query, (error, response) => {
+            if (error) throw error;
+            console.table('All departments:', response);
+            beginProgram();
+        });
+    });
+}
