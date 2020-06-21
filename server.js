@@ -15,7 +15,7 @@ const connection = mysql.createConnection({
 //Initial connection to server to check if it connects.
 connection.connect((error) => {
     if (error) throw (error);
-    console.log('connected as id' + connection.threadId)
+    //console.log('connected as id' + connection.threadId)
     beginProgram();
 });
 
@@ -48,6 +48,7 @@ const beginProgram = () => {
             case 'Add a department':
                 break;
             case 'View all roles':
+                listRoles();
                 break;
             case 'Add a role':
                 break;
@@ -82,5 +83,11 @@ const listDepartments = () => {
 };
 
 const listRoles = () => {
-    
+    const query = 'SELECT * FROM role';
+    connection.query(query, (error, response) => {
+        if (error) throw error;
+        console.log(response.length + ' role(s) found.');
+        console.table('All roles:', response);
+        beginProgram();
+    });
 };
