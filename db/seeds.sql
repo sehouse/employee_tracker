@@ -17,7 +17,7 @@ VALUES
         (2, 'Yuka', 'Sakazaki', 2, null),
         (3, 'Shoko', 'Nakajima', 3, null),
         (4, 'Minoru', 'Suzuki', 4, null),
-        (5, 'Maki Itoh', 'Suruga', 5, null), 
+        (5, 'Maki', 'Itoh', 5, null), 
         (6, 'Hyper', 'Misao', 6, null), 
         (7, 'Sayuri', 'Namba', 7, null), 
         (8, 'Pom', 'Harajuku', 8, null); 

@@ -34,9 +34,11 @@ const beginProgram = () => {
             'Add a role',
             'Close the application'
         ]
-    }).then(() => {
+//Switch/Case to run the selected option from the beginning list.
+    }).then((answer) => {
         switch (answer.action) {
-            case 'View all employees':
+            case "View all employees":
+                listEmployee();
                 break;
             case 'Add an employee':
                 break;
@@ -54,4 +56,15 @@ const beginProgram = () => {
                 break;
         }
     })
+}
+
+//Function to search the DB for all employees and return their information in a table.
+const listEmployee = () => {
+    const query = 'SELECT * FROM employee';
+    connection.query(query, (error, response) => {
+        if (error) throw error;
+        console.log(response.length + ' employees found.');
+        console.table('All Employees:', response);
+        beginProgram();
+    });
 }
