@@ -11,13 +11,13 @@ VALUES ('Intern', 30000, 1),
         ('Human Resources Head', 190000, 5),
         ('Human Resource Personnel', 65000, 5);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
 VALUES  
-        ('Hikari', 'Noa', 1, null),
-        ('Yuka', 'Sakazaki', 2, null),
-        ('Shoko', 'Nakajima', 3, null),
-        ('Minoru', 'Suzuki', 4, 4698),
-        ('Maki Itoh', 'Suruga', 5, null), 
-        ('Hyper', 'Misao', 6, null); 
-        ('Sayuri', 'Namba', 7, null), 
-        ('Pom', 'Harajuku', 8, null); 
+        (1, 'Hikari', 'Noa', 1, null),
+        (2, 'Yuka', 'Sakazaki', 2, null),
+        (3, 'Shoko', 'Nakajima', 3, null),
+        (4, 'Minoru', 'Suzuki', 4, null),
+        (5, 'Maki Itoh', 'Suruga', 5, null), 
+        (6, 'Hyper', 'Misao', 6, null), 
+        (7, 'Sayuri', 'Namba', 7, null), 
+        (8, 'Pom', 'Harajuku', 8, null); 

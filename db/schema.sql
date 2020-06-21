@@ -16,7 +16,7 @@ department_id INT NOT NULL,
 CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id)
 );
 
-CREATE TABLE employees(
+CREATE TABLE employee(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 first_name VARCHAR(50) NOT NULL,
 last_name VARCHAR(50) NOT NULL,
