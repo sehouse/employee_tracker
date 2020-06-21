@@ -41,6 +41,7 @@ const beginProgram = () => {
                 listEmployee();
                 break;
             case 'Add an employee':
+                createEmployee();
                 break;
             case 'View all departments':
                 listDepartments();
@@ -82,6 +83,7 @@ const listDepartments = () => {
     });
 };
 
+//Function to search the DB for all roles and return their information in a table.
 const listRoles = () => {
     const query = 'SELECT * FROM role';
     connection.query(query, (error, response) => {
@@ -89,5 +91,57 @@ const listRoles = () => {
         console.log(response.length + ' role(s) found.');
         console.table('All roles:', response);
         beginProgram();
+    });
+};
+
+//Function to create a new employee and add them to the db.
+const createEmployee = () => {
+    connection.query('SELECT * FROM role', (error, response) => {
+        if (error) throw error;
+        inquirer.prompt([
+            {
+                name: 'first_name',
+                type: 'input',
+                message: 'Please enter the first name of the new employee:'
+            },
+            {
+                name: 'last_name',
+                type: 'input',
+                message: 'Please enter the last name of the new employee:'
+            },
+            {
+                name: 'role',
+                type: 'list',
+                choices: () => {
+                    var roles = [];
+                    for (let i = 0; i < response.length; i++) {
+                        roles.push(response[i].title);
+                    }
+                    return roles;
+                },
+                message: "Please enter the role of the new employee:"
+            }
+        ]).then((answer) => {
+            let roleID;
+            for (let j = 0; j < response.length; j++) {
+                if (response[j].title == answer.role) {
+                    roleID = response[j].id;
+                    console.log(roleID)
+                }
+            }
+            connection.query(
+                "INSERT INTO employee SET ?",
+                {
+                    first_name: answer.first_name,
+                    last_name: answer.last_name,
+                    role_id: roleID,
+                },
+                (error) => {
+                    if (error) throw error;
+                    console.log("Your employee has been created and added to the database.");
+                    beginProgram();
+                }
+            )
+        });
     });
 };
