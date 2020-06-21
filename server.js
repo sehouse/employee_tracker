@@ -56,6 +56,7 @@ const beginProgram = () => {
                 createRole();
                 break;
             case 'Close the application':
+                closeProgram();
                 break;
             default:
                 break;
@@ -223,4 +224,9 @@ const createRole = () => {
             );
         });
     });
+}
+
+//Function to end the program.
+const closeProgram = () => {
+    connection.end();
 }
